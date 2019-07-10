@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>yys_c</title>
+  
+  
+  <link href="/yys123456.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://yys123456.github.io/"/>
+  <updated>2019-07-10T12:44:28.148Z</updated>
+  <id>https://yys123456.github.io/</id>
+  
+  <author>
+    <name>余彦松</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>123</title>
+    <link href="https://yys123456.github.io/2019/07/10/123/"/>
+    <id>https://yys123456.github.io/2019/07/10/123/</id>
+    <published>2019-07-10T05:25:10.000Z</published>
+    <updated>2019-07-10T12:44:28.148Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="-123" scheme="https://yys123456.github.io/categories/123/"/>
+    
+    
+      <category term="-123" scheme="https://yys123456.github.io/tags/123/"/>
+    
+  </entry>
+  
+</feed>
