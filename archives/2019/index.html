@@ -76,21 +76,21 @@
             
               <li class="category-list-container">
                 <a href="javascript:;">分类</a>
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/yys123456.github.io/categories/123/">-123</a><span class="category-list-count">1</span></li></ul>
+                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/yys123456.github.io/categories/123/">-123</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/yys123456.github.io/categories/PAT/">-PAT</a><span class="category-list-count">1</span></li></ul>
               </li>
             
           
             
               <li class="tag-list-container">
                 <a href="javascript:;">标签</a>
-                <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/yys123456.github.io/tags/123/">-123</a><span class="tag-list-count">1</span></li></ul>
+                <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/yys123456.github.io/tags/123/">-123</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/yys123456.github.io/tags/PAT/">-PAT</a><span class="tag-list-count">1</span></li></ul>
               </li>
             
           
             
               <li class="archive-list-container">
                 <a href="javascript:;">归档</a>
-                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/yys123456.github.io/archives/2019/">2019</a><span class="archive-list-count">1</span></li></ul>
+                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/yys123456.github.io/archives/2019/">2019</a><span class="archive-list-count">2</span></li></ul>
               </li>
             
           
@@ -137,7 +137,50 @@
 
     <div class="post-list-item article">
       <h3 class="article-header">
-        <a href="/yys123456.github.io/2019/07/10/123/">
+        <a href="/yys123456.github.io/2019/07/12/2019-07-12-PAT-1024/">
+  PAT 1024
+</a>
+
+      </h3>
+      
+
+      <div class="article-info">
+        <a href="/yys123456.github.io/2019/07/12/2019-07-12-PAT-1024/"><span class="article-date">
+  2019-07-12
+</span>
+</a>
+        
+	<span class="article-category tagcloud">
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/yys123456.github.io/categories/PAT/">-PAT</a></li></ul>
+	</span>
+
+
+        
+	<span class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/yys123456.github.io/tags/PAT/">-PAT</a></li></ul>
+	</span>
+
+
+      </div>
+      <div class="article-entry">
+        
+          <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> s;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;s;</span><br><span class="line">	<span class="keyword">char</span> c1;</span><br><span class="line">	<span class="keyword">char</span> c=s[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">int</span> p=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;s.length();i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(s[i]==<span class="string">'+'</span>||s[i]==<span class="string">'-'</span>)&#123;</span><br><span class="line">			c1=s[i];</span><br><span class="line">			i++;</span><br><span class="line">			<span class="keyword">while</span>(i&lt;s.length())&#123;</span><br><span class="line">				p=p*<span class="number">10</span>+s[i]-<span class="string">'0'</span>;</span><br><span class="line">				i++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> len=s.length();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;len;i++)&#123;</span><br><span class="line">		s[i<span class="number">-1</span>]=s[i];</span><br><span class="line">	&#125;</span><br><span class="line">	len--;</span><br><span class="line">	<span class="built_in">string</span> s1=<span class="string">""</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;s[i]!=<span class="string">'E'</span>;i++)&#123;</span><br><span class="line">		s1+=s[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(c1==<span class="string">'+'</span>)&#123;</span><br><span class="line">		<span class="keyword">while</span>(p+<span class="number">2</span>&gt;s1.length())s1+=<span class="string">'0'</span>;</span><br><span class="line">		<span class="keyword">if</span>(p+<span class="number">2</span>&lt;s1.length())s1.insert(p+<span class="number">2</span>,<span class="string">"."</span>);</span><br><span class="line">		<span class="keyword">if</span>(s1[<span class="number">0</span>]==<span class="string">'+'</span>)</span><br><span class="line">		s1.erase(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;s1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">string</span> s2=<span class="string">"."</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;p;i++)&#123;</span><br><span class="line">			s2+=<span class="string">'0'</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		s2=<span class="string">'0'</span>+s2;</span><br><span class="line">		</span><br><span class="line">		s1.insert(<span class="number">1</span>,s2);</span><br><span class="line">		<span class="keyword">if</span>(s1[<span class="number">0</span>]==<span class="string">'+'</span>)</span><br><span class="line">		s1.erase(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;s1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+      </div>
+    </div>
+
+  
+
+  
+  
+    
+  
+
+    <div class="post-list-item article">
+      <h3 class="article-header">
+        <a href="/yys123456.github.io/2019/07/10/顺序表/">
   123
 </a>
 
@@ -145,7 +188,7 @@
       
 
       <div class="article-info">
-        <a href="/yys123456.github.io/2019/07/10/123/"><span class="article-date">
+        <a href="/yys123456.github.io/2019/07/10/顺序表/"><span class="article-date">
   2019-07-10
 </span>
 </a>
