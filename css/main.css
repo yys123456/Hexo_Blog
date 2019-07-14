@@ -1914,7 +1914,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ebe367;
+  background: #2901bb;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3018,7 +3018,7 @@ ul.breadcrumb li+li:last-child {
   }
 }
 body {
-  background: url("/images/illust_47679248_20190713_133040.bmp");
+  background: url("https://files-cdn.cnblogs.com/files/tomori/illust_47679248_20190713_133040.bmp");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
