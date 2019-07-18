@@ -6,7 +6,7 @@
   <link href="/yys123456.github.io/atom.xml" rel="self"/>
   
   <link href="https://yys123456.github.io/"/>
-  <updated>2019-07-18T13:37:11.816Z</updated>
+  <updated>2019-07-18T13:39:27.356Z</updated>
   <id>https://yys123456.github.io/</id>
   
   <author>
@@ -15,31 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>PAT-1026</title>
-    <link href="https://yys123456.github.io/2019/07/18/PAT-1026/"/>
-    <id>https://yys123456.github.io/2019/07/18/PAT-1026/</id>
-    <published>2019-07-18T13:17:44.000Z</published>
-    <updated>2019-07-18T13:37:11.816Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="include"><a href="#include" class="headerlink" title="include"></a>include<bits stdc++.h></bits></h1><p>using namespace std;<br>int main(){<br>    int a,b;<br>    cin&gt;&gt;a&gt;&gt;b;<br>    int s1=(b-a)/100;<br>    double s2=double(b-a)/100;<br>    double c=s2-s1;<br>    if(c&gt;=0.5){<br>        s1+=1;<br>    }<br>    int h;<br>    int m=0;<br>    h=s1/3600;<br>    if(s1&gt;=3600){<br>        s1-=h<em>3600;<br>    }<br>    m=s1/60;<br>    if(s1&gt;=60){<br>        s1-=m</em>60;<br>    }<br>    printf(“%02d:%02d:%02d\n”,h,m,s1);</p><pre><code>return 0;</code></pre><p>} </p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;include&quot;&gt;&lt;a href=&quot;#include&quot; class=&quot;headerlink&quot; title=&quot;include&quot;&gt;&lt;/a&gt;include&lt;bits stdc++.h&gt;&lt;/bits&gt;&lt;/h1&gt;&lt;p&gt;using namespace std;&lt;br&gt;int 
-      
-    
-    </summary>
-    
-      <category term="-PAT" scheme="https://yys123456.github.io/categories/PAT/"/>
-    
-    
-      <category term="-PAT" scheme="https://yys123456.github.io/tags/PAT/"/>
-    
-  </entry>
   
   <entry>
     <title>线性链表</title>
@@ -65,6 +40,31 @@
     
     
       <category term="-线性链表" scheme="https://yys123456.github.io/tags/%E7%BA%BF%E6%80%A7%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PAT-1026</title>
+    <link href="https://yys123456.github.io/2019/07/18/PAT-1026/"/>
+    <id>https://yys123456.github.io/2019/07/18/PAT-1026/</id>
+    <published>2019-07-18T13:17:44.000Z</published>
+    <updated>2019-07-18T13:37:11.816Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="include"><a href="#include" class="headerlink" title="include"></a>include<bits stdc++.h></bits></h1><p>using namespace std;<br>int main(){<br>    int a,b;<br>    cin&gt;&gt;a&gt;&gt;b;<br>    int s1=(b-a)/100;<br>    double s2=double(b-a)/100;<br>    double c=s2-s1;<br>    if(c&gt;=0.5){<br>        s1+=1;<br>    }<br>    int h;<br>    int m=0;<br>    h=s1/3600;<br>    if(s1&gt;=3600){<br>        s1-=h<em>3600;<br>    }<br>    m=s1/60;<br>    if(s1&gt;=60){<br>        s1-=m</em>60;<br>    }<br>    printf(“%02d:%02d:%02d\n”,h,m,s1);</p><pre><code>return 0;</code></pre><p>} </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;include&quot;&gt;&lt;a href=&quot;#include&quot; class=&quot;headerlink&quot; title=&quot;include&quot;&gt;&lt;/a&gt;include&lt;bits stdc++.h&gt;&lt;/bits&gt;&lt;/h1&gt;&lt;p&gt;using namespace std;&lt;br&gt;int 
+      
+    
+    </summary>
+    
+      <category term="-PAT" scheme="https://yys123456.github.io/categories/PAT/"/>
+    
+    
+      <category term="-PAT" scheme="https://yys123456.github.io/tags/PAT/"/>
     
   </entry>
   
