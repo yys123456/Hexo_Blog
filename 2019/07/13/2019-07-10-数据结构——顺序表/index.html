@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="yys_c">
 <meta property="og:description" content="顺序表是线性表的一种，顺序表的特殊性在于顺序表用一组地址连续的存储单元依次存储线性表的数据元素，所以就导致了顺序表这种数据结构中数据元素之间的逻辑关系和物理存储位置是一致的，所以在顺序表中，已知一个数据元素的地址，可以推算出其他所有元素的地址，即顺序表是一种随机存取的结构。 1. 顺序表的表示在数据结构教材中将顺序表这种数据结构封装成了C语言中的struct类型，而C语言中的数组结构就很类似于顺">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-14T06:08:45.457Z">
+<meta property="og:updated_time" content="2019-07-18T07:32:15.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="顺序表">
 <meta name="twitter:description" content="顺序表是线性表的一种，顺序表的特殊性在于顺序表用一组地址连续的存储单元依次存储线性表的数据元素，所以就导致了顺序表这种数据结构中数据元素之间的逻辑关系和物理存储位置是一致的，所以在顺序表中，已知一个数据元素的地址，可以推算出其他所有元素的地址，即顺序表是一种随机存取的结构。 1. 顺序表的表示在数据结构教材中将顺序表这种数据结构封装成了C语言中的struct类型，而C语言中的数组结构就很类似于顺">
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-14 14:08:45" itemprop="dateModified" datetime="2019-07-14T14:08:45+08:00">2019-07-14</time>
+                <time title="修改时间：2019-07-18 15:32:15" itemprop="dateModified" datetime="2019-07-18T15:32:15+08:00">2019-07-18</time>
               
             
           </span>
@@ -455,7 +455,7 @@
 <p>由于无法预测到输入数据的插入位置是否满足合法性，所以需要进行插入位置的合法性检查，另外插入运算需要对顺序表中的元素进行移动，比如，要求在长度为n的顺序表中的i（1&lt;=i&lt;=n+1）号位置插入一个元素，就需要先将i号位置空出来，就需要将i~n的所有元素整体向后移动位置,在对i位置赋值，使用简单的整型数组结合循环语句可以表达如下（注意下标的转换）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=n<span class="number">-1</span>;j&gt;=i<span class="number">-1</span>;j--)&#123;</span><br><span class="line">	a[j+<span class="number">1</span>]=a[j];</span><br><span class="line">&#125;</span><br><span class="line">a[i<span class="number">-1</span>]=e;<span class="comment">//e为要插入的数值</span></span><br><span class="line">n++;<span class="comment">//长度增加一个</span></span><br></pre></td></tr></table></figure>
 <p>使用教材上的结构体描述如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LISTINSERT</span><span class="params">(SqList&amp;s,<span class="keyword">int</span> e,<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;n+<span class="number">1</span>)<span class="built_in">exit</span>(<span class="number">0</span>);<span class="comment">//插入位置不合理</span></span><br><span class="line">	<span class="keyword">if</span>(s.len==s.size)&#123;<span class="comment">//此时无法再插入元素需要重新分配</span></span><br><span class="line">        s.elem=(<span class="keyword">int</span>*)<span class="built_in">realloc</span>(s.elem,<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(INCRSIZE+INITSIZE));</span><br><span class="line">        <span class="keyword">if</span>(!s.elem)<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=s.len<span class="number">-1</span>;j&gt;=i<span class="number">-1</span>;j--)&#123;</span><br><span class="line">            s.elem[j+<span class="number">1</span>]=s.elem[j];</span><br><span class="line">        &#125;</span><br><span class="line">        s.elem[i<span class="number">-1</span>]=e;</span><br><span class="line">        s.len++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LISTINSERT</span><span class="params">(SqList&amp;s,<span class="keyword">int</span> e,<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;n+<span class="number">1</span>)<span class="built_in">exit</span>(<span class="number">0</span>);<span class="comment">//插入位置不合理</span></span><br><span class="line">	<span class="keyword">if</span>(s.len==s.size)&#123;<span class="comment">//此时无法再插入元素需要重新分配</span></span><br><span class="line">        s.elem=(<span class="keyword">int</span>*)<span class="built_in">realloc</span>(s.elem,<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(INCRSIZE+s.size));</span><br><span class="line">        <span class="keyword">if</span>(!s.elem)<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=s.len<span class="number">-1</span>;j&gt;=i<span class="number">-1</span>;j--)&#123;</span><br><span class="line">            s.elem[j+<span class="number">1</span>]=s.elem[j];</span><br><span class="line">        &#125;</span><br><span class="line">        s.elem[i<span class="number">-1</span>]=e;</span><br><span class="line">        s.len++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度分析</p>
 <p>顺序表的插入运算会涉及到元素的移动，所以不同的插入位置会导致不同的时间复杂度，考虑在最坏的情况下（即插入位置在1号位置）的时间复杂度，需要将1~n的所有数据元素向后移动一个，所以可以得出最坏情况下的时间复杂度为</p>
 <script type="math/tex; mode=display">
@@ -588,6 +588,10 @@ O(m+n)</script><p>相比直接简单求并集，复杂度有所减小，但是�
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/yys123456.github.io/2019/07/18/数据结构———线性链表/" rel="prev" title="数据结构———线性链表">
+                数据结构———线性链表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -658,7 +662,7 @@ O(m+n)</script><p>相比直接简单求并集，复杂度有所减小，但是�
                 
                   <a href="/yys123456.github.io/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -692,7 +696,9 @@ O(m+n)</script><p>相比直接简单求并集，复杂度有所减小，但是�
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
