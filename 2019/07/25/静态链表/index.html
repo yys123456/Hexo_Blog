@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="yys_c">
 <meta property="og:description" content="由于C++语言中具有指针这一种数据类型，指针用来指示结点的存储首地址，所以可以使用前一个结点中的next域中所存放的地址来指示下一个结点的位置，从而可以方便地实现单链表的结构，但是对于不设指针的高级语言中，就无法使用指针来实现单链表了。虽然没有指针这种数据类型，并不代表无法实现链表数据结构，链表实际上就是一个一个结点通过地址的关系链接起来，主要是为了满足插入与删除和动态分配结点的方便性的数据结构。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-25T08:41:40.948Z">
+<meta property="og:updated_time" content="2019-07-29T08:20:17.743Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="静态链表">
 <meta name="twitter:description" content="由于C++语言中具有指针这一种数据类型，指针用来指示结点的存储首地址，所以可以使用前一个结点中的next域中所存放的地址来指示下一个结点的位置，从而可以方便地实现单链表的结构，但是对于不设指针的高级语言中，就无法使用指针来实现单链表了。虽然没有指针这种数据类型，并不代表无法实现链表数据结构，链表实际上就是一个一个结点通过地址的关系链接起来，主要是为了满足插入与删除和动态分配结点的方便性的数据结构。">
@@ -364,12 +364,24 @@
                 
               
 
-              <time title="创建时间：2019-07-25 13:14:27 / 修改时间：16:41:40" itemprop="dateCreated datePublished" datetime="2019-07-25T13:14:27+08:00">2019-07-25</time>
+              <time title="创建时间：2019-07-25 13:14:27" itemprop="dateCreated datePublished" datetime="2019-07-25T13:14:27+08:00">2019-07-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-29 16:20:17" itemprop="dateModified" datetime="2019-07-29T16:20:17+08:00">2019-07-29</time>
               
             
           </span>
@@ -438,15 +450,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createList</span><span class="params">(<span class="keyword">char</span> ...s)</span></span>&#123;<span class="comment">//尾插法</span></span><br><span class="line">        head=malloc();<span class="comment">//0表示失败</span></span><br><span class="line">        <span class="keyword">int</span> r=head;<span class="comment">//r是尾指针，标记当前链表的最后一个结点</span></span><br><span class="line">        a[head].next=<span class="number">0</span>;<span class="comment">//0对应指针单链表中的NULL</span></span><br><span class="line">        <span class="keyword">if</span>(head!=<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length;i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> q=malloc();</span><br><span class="line">                a[q].data=s[i];</span><br><span class="line">                a[q].next=a[r].next;</span><br><span class="line">                a[r].next=q;</span><br><span class="line">                r=q;</span><br><span class="line">                len++;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            System.out.println(<span class="string">"空间不够"</span>);<span class="comment">//实际上s的最长长度为LEN-2，s为实际数据个数</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h4 id="2-遍历"><a href="#2-遍历" class="headerlink" title="2. 遍历"></a>2. 遍历</h4><p>使用遍历来测试SL是否建立成功</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showList</span><span class="params">()</span></span>&#123;<span class="comment">//遍历</span></span><br><span class="line">       <span class="keyword">int</span> h=a[head].next;</span><br><span class="line">       <span class="keyword">while</span>(h!=<span class="number">0</span>)&#123;</span><br><span class="line">           System.out.println(h+<span class="string">" "</span>+a[h].data+<span class="string">" "</span>+a[h].next);</span><br><span class="line">           h=a[h].next;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-元素定位"><a href="#3-元素定位" class="headerlink" title="3. 元素定位"></a>3. 元素定位</h4><ol>
-<li>特定位置元素定位</li>
-</ol>
-<p>类似于指针单链表，使用一个计数器j，并满足查找过程中链表没有走到尽头。</p>
+<h4 id="3-元素定位"><a href="#3-元素定位" class="headerlink" title="3. 元素定位"></a>3. 元素定位</h4><h5 id="1-特定位置元素定位"><a href="#1-特定位置元素定位" class="headerlink" title="1. 特定位置元素定位"></a>1. 特定位置元素定位</h5><p>类似于指针单链表，使用一个计数器j，并满足查找过程中链表没有走到尽头。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">StaticList <span class="title">locateElem</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;<span class="comment">//按照个数来定位</span></span><br><span class="line">       <span class="keyword">int</span> j=<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">int</span> h=a[head].next;</span><br><span class="line">       <span class="keyword">for</span>(;j&lt;i&amp;&amp;h!=<span class="number">0</span>;j++,h=a[h].next);</span><br><span class="line">       <span class="keyword">if</span>(j&gt;i||h==<span class="number">0</span>)<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">return</span> a[h];</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>特定值的元素定位</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">StaticList <span class="title">locateElem</span><span class="params">(<span class="keyword">char</span> c)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> h=a[head].next;</span><br><span class="line">       <span class="keyword">while</span>(h!=<span class="number">0</span>&amp;&amp;a[h].data!=c)h=a[h].next;</span><br><span class="line">       <span class="keyword">if</span>(h==<span class="number">0</span>)<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">return</span> a[h];</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-特定值的元素定位"><a href="#2-特定值的元素定位" class="headerlink" title="2. 特定值的元素定位"></a>2. 特定值的元素定位</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">StaticList <span class="title">locateElem</span><span class="params">(<span class="keyword">char</span> c)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> h=a[head].next;</span><br><span class="line">       <span class="keyword">while</span>(h!=<span class="number">0</span>&amp;&amp;a[h].data!=c)h=a[h].next;</span><br><span class="line">       <span class="keyword">if</span>(h==<span class="number">0</span>)<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">return</span> a[h];</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <h4 id="4-插入"><a href="#4-插入" class="headerlink" title="4. 插入"></a>4. 插入</h4><p>类似于指针单链表，插入操作需要先走到需要插入位置的前一个位置，如果在链表中存在这个位置，那么就在它后面执行插入操作。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">char</span> c)</span></span>&#123;</span><br><span class="line">     <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">int</span> h=head;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">while</span>(j&lt;i-<span class="number">1</span>&amp;&amp;h!=<span class="number">0</span>)&#123;</span><br><span class="line">         j++;</span><br><span class="line">         h=a[h].next;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">if</span>(j&gt;i-<span class="number">1</span>||h==<span class="number">0</span>)<span class="keyword">return</span> <span class="number">2</span>;<span class="comment">//插入位置不合法</span></span><br><span class="line">     <span class="keyword">int</span> p=malloc();</span><br><span class="line">     <span class="keyword">if</span>(p==<span class="number">0</span>)<span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//无剩余空间</span></span><br><span class="line">     a[p].data=c;</span><br><span class="line">     a[p].next=a[h].next;</span><br><span class="line">     a[h].next=p;</span><br><span class="line">     len++;</span><br><span class="line">     <span class="keyword">return</span> <span class="number">1</span>;<span class="comment">//正常插入</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <h4 id="5-删除"><a href="#5-删除" class="headerlink" title="5. 删除"></a>5. 删除</h4><p>类似于指针单链表，删除操作需要先走到需要插入位置的前一个位置，如果在链表中存在这个位置，并且下一个位置有结点，就执行删除操作，但由于SL的所有结点都是从一个资源数组得来的，所以对于一个结点的释放，就是将这个结点还给资源数组，而这个操作需要自己实现free方法。</p>
@@ -516,6 +522,10 @@ A\oplus{B}=(A\cup{B})-(A\cap{B})=(A-B)\cup(B-A)</script><p>所以求A和B的对�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/yys123456.github.io/2019/07/29/华为开启usb调试问题/" rel="prev" title="华为开启usb调试问题">
+                华为开启usb调试问题 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -587,7 +597,7 @@ A\oplus{B}=(A\cup{B})-(A\cap{B})=(A-B)\cup(B-A)</script><p>所以求A和B的对�
                 
                   <a href="/yys123456.github.io/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -604,7 +614,9 @@ A\oplus{B}=(A\cup{B})-(A\cap{B})=(A-B)\cup(B-A)</script><p>所以求A和B的对�
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -625,7 +637,9 @@ A\oplus{B}=(A\cup{B})-(A\cap{B})=(A-B)\cup(B-A)</script><p>所以求A和B的对�
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -668,7 +682,7 @@ A\oplus{B}=(A\cup{B})-(A\cap{B})=(A-B)\cup(B-A)</script><p>所以求A和B的对�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-结点的结构"><span class="nav-number">1.</span> <span class="nav-text">1. 结点的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-具体实现"><span class="nav-number">2.</span> <span class="nav-text">2.  具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-建立"><span class="nav-number">2.1.</span> <span class="nav-text">1. 建立</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-遍历"><span class="nav-number">2.2.</span> <span class="nav-text">2. 遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-元素定位"><span class="nav-number">2.3.</span> <span class="nav-text">3. 元素定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-插入"><span class="nav-number">2.4.</span> <span class="nav-text">4. 插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-删除"><span class="nav-number">2.5.</span> <span class="nav-text">5. 删除</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-按位序删除"><span class="nav-number">2.5.1.</span> <span class="nav-text">1. 按位序删除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-按值删除（删除特定值的结点）"><span class="nav-number">2.5.2.</span> <span class="nav-text">2. 按值删除（删除特定值的结点）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-基于静态链表求集合A与B的对称差"><span class="nav-number">3.</span> <span class="nav-text">3. 基于静态链表求集合A与B的对称差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4. 总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-测试程序"><span class="nav-number">5.</span> <span class="nav-text">5. 测试程序</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-结点的结构"><span class="nav-number">1.</span> <span class="nav-text">1. 结点的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-具体实现"><span class="nav-number">2.</span> <span class="nav-text">2.  具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-建立"><span class="nav-number">2.1.</span> <span class="nav-text">1. 建立</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-遍历"><span class="nav-number">2.2.</span> <span class="nav-text">2. 遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-元素定位"><span class="nav-number">2.3.</span> <span class="nav-text">3. 元素定位</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-特定位置元素定位"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. 特定位置元素定位</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-特定值的元素定位"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. 特定值的元素定位</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-插入"><span class="nav-number">2.4.</span> <span class="nav-text">4. 插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-删除"><span class="nav-number">2.5.</span> <span class="nav-text">5. 删除</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-按位序删除"><span class="nav-number">2.5.1.</span> <span class="nav-text">1. 按位序删除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-按值删除（删除特定值的结点）"><span class="nav-number">2.5.2.</span> <span class="nav-text">2. 按值删除（删除特定值的结点）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-基于静态链表求集合A与B的对称差"><span class="nav-number">3.</span> <span class="nav-text">3. 基于静态链表求集合A与B的对称差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4. 总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-测试程序"><span class="nav-number">5.</span> <span class="nav-text">5. 测试程序</span></a></li></ol></div>
             
 
           </div>
