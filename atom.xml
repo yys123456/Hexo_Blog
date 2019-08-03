@@ -6,7 +6,7 @@
   <link href="/yys123456.github.io/atom.xml" rel="self"/>
   
   <link href="https://yys123456.github.io/"/>
-  <updated>2019-07-30T11:57:29.245Z</updated>
+  <updated>2019-08-03T09:53:08.353Z</updated>
   <id>https://yys123456.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>1051-复数乘积</title>
+    <link href="https://yys123456.github.io/2019/08/03/pat-1051/"/>
+    <id>https://yys123456.github.io/2019/08/03/pat-1051/</id>
+    <published>2019-08-03T09:48:37.000Z</published>
+    <updated>2019-08-03T09:53:08.353Z</updated>
+    
+    <content type="html"><![CDATA[<p>本题复数乘积需要注意：实部或虚部的绝对值小于0.005被认为是0的近似。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Complex</span>&#123;</span></span><br><span class="line"><span class="keyword">double</span> a,b;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">Complex(<span class="keyword">double</span> a,<span class="keyword">double</span> b):a(a),b(b)&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">friend</span> ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp;out,<span class="keyword">const</span> Complex c);</span><br><span class="line"><span class="keyword">friend</span> Complex <span class="keyword">operator</span>*(<span class="keyword">const</span> Complex&amp;c1,<span class="keyword">const</span> Complex&amp;c2)&#123;</span><br><span class="line"><span class="keyword">return</span> Complex(c1.a*c2.a+(<span class="number">-1</span>)*(c1.b*c2.b),c1.a*c2.b+c1.b*c2.a);</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp;out,Complex c)&#123;</span><br><span class="line">out&lt;&lt;setiosflags(ios::fixed)&lt;&lt;setprecision(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">abs</span>(c.a)&lt;<span class="number">0.005</span>)c.a=+<span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">abs</span>(c.b)&lt;<span class="number">0.005</span>)c.b=+<span class="number">0</span>;</span><br><span class="line">out&lt;&lt;c.a;</span><br><span class="line">out&lt;&lt;(c.b&gt;=<span class="number">0</span>?<span class="string">"+"</span>:<span class="string">""</span>);</span><br><span class="line">out&lt;&lt;c.b&lt;&lt;<span class="string">"i"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> out;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">double</span> a,b,c,d;</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b&gt;&gt;c&gt;&gt;d;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;(Complex(a*<span class="built_in">cos</span>(b),a*<span class="built_in">sin</span>(b))*Complex(c*<span class="built_in">cos</span>(d),c*<span class="built_in">sin</span>(d)));</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本题复数乘积需要注意：实部或虚部的绝对值小于0.005被认为是0的近似。&lt;/p&gt;
+&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;
+      
+    
+    </summary>
+    
+      <category term="pat" scheme="https://yys123456.github.io/categories/pat/"/>
+    
+    
+      <category term="1051" scheme="https://yys123456.github.io/tags/1051/"/>
+    
+  </entry>
   
   <entry>
     <title>大整数除法</title>
