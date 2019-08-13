@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/yys123456.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/yys123456.github.io/css/main.css?v=6.7.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yys123456.github.io/images/32x32.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yys123456.github.io/images/16x16.ico?v=6.7.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yys123456.github.io/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1043 输出PATest (20 分)给定一个长度不超过 104 的、仅由英文字母构成的字符串。请将字符重新调整顺序，按 PATestPATest.... 这样的顺序输出，并忽略其它字符。当然，六种字符的个数不一定是一样多的，若某种字符已经输出完，则余下的字符仍按 PATest 的顺序打印，直到所有字符都被输出。 输入格式：输入在一行中给出一个长度不超过 104 的、仅由英文字母构成的非空字符串">
+<meta name="keywords" content="1043">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pat-1043输出PATest">
+<meta property="og:url" content="https://yys123456.github.io/2019/08/13/新博文/index.html">
+<meta property="og:site_name" content="yys_c">
+<meta property="og:description" content="1043 输出PATest (20 分)给定一个长度不超过 104 的、仅由英文字母构成的字符串。请将字符重新调整顺序，按 PATestPATest.... 这样的顺序输出，并忽略其它字符。当然，六种字符的个数不一定是一样多的，若某种字符已经输出完，则余下的字符仍按 PATest 的顺序打印，直到所有字符都被输出。 输入格式：输入在一行中给出一个长度不超过 104 的、仅由英文字母构成的非空字符串">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-13T02:50:30.947Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pat-1043输出PATest">
+<meta name="twitter:description" content="1043 输出PATest (20 分)给定一个长度不超过 104 的、仅由英文字母构成的字符串。请将字符重新调整顺序，按 PATestPATest.... 这样的顺序输出，并忽略其它字符。当然，六种字符的个数不一定是一样多的，若某种字符已经输出完，则余下的字符仍按 PATest 的顺序打印，直到所有字符都被输出。 输入格式：输入在一行中给出一个长度不超过 104 的、仅由英文字母构成的非空字符串">
+
+
+
+  <link rel="alternate" href="/yys123456.github.io/atom.xml" title="yys_c" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://yys123456.github.io/2019/08/13/新博文/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>pat-1043输出PATest | yys_c</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yys123456.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yys_c</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yys123456.github.io/yys123456.github.io/2019/08/13/新博文/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yu yan song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yys123456.github.io/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yys_c">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">pat-1043输出PATest
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-13 10:25:24 / 修改时间：10:50:30" itemprop="dateCreated datePublished" datetime="2019-08-13T10:25:24+08:00">2019-08-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/yys123456.github.io/categories/pat/" itemprop="url" rel="index"><span itemprop="name">pat</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1043-输出PATest-20-分"><a href="#1043-输出PATest-20-分" class="headerlink" title="1043 输出PATest (20 分)"></a>1043 输出PATest (20 分)</h3><p>给定一个长度不超过 104 的、仅由英文字母构成的字符串。请将字符重新调整顺序，按 <code>PATestPATest....</code> 这样的顺序输出，并忽略其它字符。当然，六种字符的个数不一定是一样多的，若某种字符已经输出完，则余下的字符仍按 PATest 的顺序打印，直到所有字符都被输出。</p>
+<h3 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h3><p>输入在一行中给出一个长度不超过 104 的、仅由英文字母构成的非空字符串。</p>
+<h3 id="输出格式："><a href="#输出格式：" class="headerlink" title="输出格式："></a>输出格式：</h3><p>在一行中按题目要求输出排序后的字符串。题目保证输出非空。</p>
+<h3 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redlesPayBestPATTopTeePHPereatitAPPT</span><br></pre></td></tr></table></figure>
+<h3 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATestPATestPTetPTePePee</span><br></pre></td></tr></table></figure>
+<h3 id="读题"><a href="#读题" class="headerlink" title="读题"></a>读题</h3><p>题目要求从前向后扫描字符串，然后经过适当的排序和删除，按照PATest的模式，输出处理后的字符串。</p>
+<p>过程</p>
+<ol>
+<li>将所有不包含在PATest中的字符排除掉；</li>
+<li>将包含在PATest中的字符适当地排序；</li>
+<li>按照PATest模式输出字符串。</li>
+</ol>
+<p>所谓按照PATest模式输出，就是输出字符地顺序一定是按照PATest地顺序输出，不论中间是否缺少其他字符，比如缺少T，那么就要输出PAest。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>我的思路与读题中的字面上的思路完全不同，因为考虑到不断地对字符串选择和排序，会造成极高的时间复杂度。所以我考虑从字符的个数方面来考虑。</p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><ol>
+<li><strong>输出字符串中只有$’P’,’A’,’T’,’e’,’s’,’t’$这五种字符，所以我可以直接忽略其他字符</strong></li>
+<li><strong>发现最终输出的结果，输出$PATest$是从完整的$PATest$到不完整的$PATest$，所以我可以建立一个仓库，这个仓库存放这所有的可供分配的$’P’,’A’,’T’,’e’,’s’,’t’$字符，然后每次都尽可能完整的输出$PATest$子串。</strong></li>
+<li>利用短板效应，能够输出$PATest$顺序的<strong>组合</strong>（<strong>不一定是完整的</strong>$PATest$）取决于储存数量最少的那一种字符，所以需要找到<strong>存储最少</strong>的那一种字符，就可以得出<strong>当前这种$PATest$模式的组合</strong>可以最多输出多少个。</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><h4 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a>C++实现</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">node</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">	    <span class="keyword">int</span> t;</span><br><span class="line">	    <span class="keyword">char</span> m;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> t[]=&#123;<span class="string">'P'</span>,<span class="string">'A'</span>,<span class="string">'T'</span>,<span class="string">'e'</span>,<span class="string">'s'</span>,<span class="string">'t'</span>&#125;;</span><br><span class="line">	node a[<span class="number">6</span>];</span><br><span class="line">	<span class="built_in">string</span> s;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)&#123;</span><br><span class="line">		a[i].t=<span class="number">0</span>;</span><br><span class="line">        a[i].m=t[i];</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">while</span>((c=getchar())!=<span class="string">'\n'</span>)&#123;</span><br><span class="line">		<span class="keyword">switch</span>(c)&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'P'</span>:a[<span class="number">0</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'A'</span>:a[<span class="number">1</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'T'</span>:a[<span class="number">2</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'e'</span>:a[<span class="number">3</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'s'</span>:a[<span class="number">4</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'t'</span>:a[<span class="number">5</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">int</span> len=<span class="number">6</span>;</span><br><span class="line">    <span class="keyword">int</span> min=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(len==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">        s=<span class="string">""</span>;</span><br><span class="line">        min=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[i].t==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;len;j++)a[j<span class="number">-1</span>]=a[j];</span><br><span class="line">                len--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[min].t&gt;a[i].t)min=i;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> r=a[min].t;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">            a[i].t-=r;</span><br><span class="line">            s+=a[i].m;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;r;i++)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;(s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Java代码（4号测试点内存超限）"><a href="#Java代码（4号测试点内存超限）" class="headerlink" title="Java代码（4号测试点内存超限）"></a>Java代码（4号测试点内存超限）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">node</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="keyword">char</span> m;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    node[] a;</span><br><span class="line">    Scanner scn;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span>[] t=<span class="keyword">new</span> <span class="keyword">char</span>[]&#123;<span class="string">'P'</span>,<span class="string">'A'</span>,<span class="string">'T'</span>,<span class="string">'e'</span>,<span class="string">'s'</span>,<span class="string">'t'</span>&#125;;</span><br><span class="line">    Main()&#123;</span><br><span class="line">        scn=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        a=<span class="keyword">new</span> node[<span class="number">6</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)&#123;</span><br><span class="line">            a[i]=<span class="keyword">new</span> node();</span><br><span class="line">            a[i].m=t[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">char</span> c;</span><br><span class="line">        String s1=scn.next();</span><br><span class="line">        <span class="keyword">int</span> e=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(e&lt;s1.length())&#123;</span><br><span class="line">            <span class="keyword">switch</span>((s1.toCharArray())[e])&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'P'</span>:a[<span class="number">0</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'A'</span>:a[<span class="number">1</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'T'</span>:a[<span class="number">2</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'e'</span>:a[<span class="number">3</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'s'</span>:a[<span class="number">4</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'t'</span>:a[<span class="number">5</span>].t++;<span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            e++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">boolean</span> flag=<span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">int</span> len=<span class="number">6</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="comment">//System.out.println(len);</span></span><br><span class="line">            <span class="keyword">if</span>(len==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(a[i].t==<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;len;j++)a[j-<span class="number">1</span>]=a[j];</span><br><span class="line">                    len--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> min=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(a[min].t&gt;a[i].t)min=i;</span><br><span class="line">            &#125;</span><br><span class="line">            String s=<span class="string">""</span>;</span><br><span class="line">            <span class="keyword">int</span> r=a[min].t;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">                a[i].t-=r;</span><br><span class="line">                s+=a[i].m;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;r;i++)&#123;</span><br><span class="line">                System.out.print(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Main m=<span class="keyword">new</span> Main();</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yys123456.github.io/tags/1043/" rel="tag"># 1043</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yys123456.github.io/2019/08/13/n元买n鸡问题/" rel="next" title="n元买n鸡问题">
+                <i class="fa fa-chevron-left"></i> n元买n鸡问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yys123456.github.io/images/head.jpg" alt="yu yan song">
+            
+              <p class="site-author-name" itemprop="name">yu yan song</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/yys123456.github.io/archives/">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/yys123456.github.io/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/yys123456.github.io/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/yys123456.github.io/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1043-输出PATest-20-分"><span class="nav-number">1.</span> <span class="nav-text">1043 输出PATest (20 分)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入格式："><span class="nav-number">2.</span> <span class="nav-text">输入格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出格式："><span class="nav-number">3.</span> <span class="nav-text">输出格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入样例："><span class="nav-number">4.</span> <span class="nav-text">输入样例：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出样例："><span class="nav-number">5.</span> <span class="nav-text">输出样例：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读题"><span class="nav-number">6.</span> <span class="nav-text">读题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">7.</span> <span class="nav-text">思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">7.1.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">8.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-实现"><span class="nav-number">8.1.</span> <span class="nav-text">C++实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java代码（4号测试点内存超限）"><span class="nav-number">8.2.</span> <span class="nav-text">Java代码（4号测试点内存超限）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yu yan song</span>
+
+  
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/yys123456.github.io/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/yys123456.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/yys123456.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/yys123456.github.io/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/yys123456.github.io/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/yys123456.github.io/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/yys123456.github.io/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/yys123456.github.io/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/yys123456.github.io/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/yys123456.github.io/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/yys123456.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/yys123456.github.io/live2dw/assets/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
