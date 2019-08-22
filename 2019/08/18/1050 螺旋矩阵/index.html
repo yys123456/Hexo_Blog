@@ -476,7 +476,7 @@
 <li>准备一个符合题意的二位数组$A_{m\times{n}}$（注意这个）；</li>
 <li>开始核心算法过程，令<strong>step=0</strong>（从0层开始放置，<strong>step的作用是什么？</strong>屏蔽层间差别）</li>
 <li>从前向后遍历S，每次得到S中的一个元素X；</li>
-<li>通过X在S中的序号和T得到X应当放置在$A_{m\times{n}}$的第$step$层二维数组$B_{(m-2step)\times(n-2step)}(step=0,1,2,3…)$中的哪一个位置（v,e），并将其放置于这个位置。</li>
+<li>通过X在S中的序号和T得到X应当放置在$A<em>{m\times{n}}$的第$step$层二维数组$B</em>{(m-2step)\times(n-2step)}(step=0,1,2,3…)$中的哪一个位置（v,e），并将其放置于这个位置。</li>
 <li>检查序列是否走到尽头？结束：step+1并转5。</li>
 </ol>
 <h3 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a>C++实现</h3><p>标注为R的语句就是实现映射的部分。</p>
@@ -784,6 +784,16 @@
 
   
 </div>
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
 
 
 
