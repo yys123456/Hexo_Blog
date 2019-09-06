@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/yys123456.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/yys123456.github.io/css/main.css?v=6.7.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yys123456.github.io/images/32x32.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yys123456.github.io/images/16x16.ico?v=6.7.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yys123456.github.io/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在之前的数据结构算法实现中，有一个合并两个有序线性表（顺序表或单链表）的算法，此算法实现了将两个升序的线性表合并成一个线性表并保持合并结果仍为升序，而对于归并排序，它的核心操作就是两个有序序列的有序合并的操作。 合并两个升序线性表顺序表12345678910111213a[0...n-1]b[0...m-1]c[0...m+n-1]k=0for i&amp;lt;n&amp;amp;&amp;amp;j&amp;lt;m	if">
+<meta name="keywords" content="2-路归并排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2-路归并排序">
+<meta property="og:url" content="https://yys123456.github.io/2019/09/05/归并排序/index.html">
+<meta property="og:site_name" content="yys_c">
+<meta property="og:description" content="在之前的数据结构算法实现中，有一个合并两个有序线性表（顺序表或单链表）的算法，此算法实现了将两个升序的线性表合并成一个线性表并保持合并结果仍为升序，而对于归并排序，它的核心操作就是两个有序序列的有序合并的操作。 合并两个升序线性表顺序表12345678910111213a[0...n-1]b[0...m-1]c[0...m+n-1]k=0for i&amp;lt;n&amp;amp;&amp;amp;j&amp;lt;m	if">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-06T11:49:13.052Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2-路归并排序">
+<meta name="twitter:description" content="在之前的数据结构算法实现中，有一个合并两个有序线性表（顺序表或单链表）的算法，此算法实现了将两个升序的线性表合并成一个线性表并保持合并结果仍为升序，而对于归并排序，它的核心操作就是两个有序序列的有序合并的操作。 合并两个升序线性表顺序表12345678910111213a[0...n-1]b[0...m-1]c[0...m+n-1]k=0for i&amp;lt;n&amp;amp;&amp;amp;j&amp;lt;m	if">
+
+
+
+  <link rel="alternate" href="/yys123456.github.io/atom.xml" title="yys_c" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://yys123456.github.io/2019/09/05/归并排序/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>2-路归并排序 | yys_c</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yys123456.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yys_c</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yys123456.github.io/yys123456.github.io/2019/09/05/归并排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yu yan song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yys123456.github.io/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yys_c">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2-路归并排序
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-05 17:58:39" itemprop="dateCreated datePublished" datetime="2019-09-05T17:58:39+08:00">2019-09-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-09-06 19:49:13" itemprop="dateModified" datetime="2019-09-06T19:49:13+08:00">2019-09-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/yys123456.github.io/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在之前的数据结构算法实现中，有一个合并两个有序线性表（顺序表或单链表）的算法，此算法实现了将两个升序的线性表合并成一个线性表并保持合并结果仍为升序，而对于归并排序，它的<strong>核心操作</strong>就是<strong>两个<font color="red">有序序列</font>的<font color="red">有序合并</font></strong>的操作。</p>
+<h3 id="合并两个升序线性表"><a href="#合并两个升序线性表" class="headerlink" title="合并两个升序线性表"></a>合并两个升序线性表</h3><h4 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">a[0...n-1]</span><br><span class="line">b[0...m-1]</span><br><span class="line">c[0...m+n-1]</span><br><span class="line">k=0</span><br><span class="line">for i&lt;n&amp;&amp;j&lt;m</span><br><span class="line">	if a[i]&lt;=b[j]</span><br><span class="line">		c[k++]=a[i++]</span><br><span class="line">	else</span><br><span class="line">		c[k++]=b[j++]</span><br><span class="line">while j&lt;m</span><br><span class="line">	c[k++]=b[j++]</span><br><span class="line">while i&lt;n</span><br><span class="line">	c[k++]=a[i++]</span><br></pre></td></tr></table></figure>
+<h4 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">头指针:A</span><br><span class="line">头指针:B</span><br><span class="line">指针:L,C</span><br><span class="line">L=C=A</span><br><span class="line">while A&amp;&amp;B</span><br><span class="line">	if A-&gt;data&lt;=b-&gt;data</span><br><span class="line">		C-&gt;next=A</span><br><span class="line">		C=A</span><br><span class="line">		A=A-&gt;next</span><br><span class="line">	else</span><br><span class="line">		C-&gt;next=B</span><br><span class="line">		C=B</span><br><span class="line">		B=B-&gt;next</span><br><span class="line">C-&gt;next=(A==NULL?B:A)</span><br></pre></td></tr></table></figure>
+<h3 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h3><p>归并排序的过程是认为一个待排序序列（可能是某一个大序列的<strong>子序列</strong>）是由多个子序列组成的，所以对整个序列的排序就可以自底向上的理解：将一个一个子序列按照要求（升序或降序）进行排列好了以后，然后再整个地将它们按照要求（升序或降序）地合并起来成为整个序列，<strong>而其中对子序列的按要求排序同样会将子序列分成多个子序列，然后将子序列的子序列按照要求排序并合并成子序列…</strong></p>
+<h3 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h3><h4 id="递归算法"><a href="#递归算法" class="headerlink" title="递归算法"></a>递归算法</h4><p>首先接收待排序序列a，以及排序范围$[left,right]$，排序函数MergeSort(int*a,int left,int right)然后按下列步骤</p>
+<ol>
+<li>MergeSort函数接收left和right，判断left&lt;right？转到2：转到6；</li>
+<li>此时尚未划分到最小的序列，设置$mid=\frac{right+left}{2}$；</li>
+<li>递归调用MergeSort(a,left,mid)（对left~mid进行归并排序）；</li>
+<li>递归调用MergeSort(a,mid+1,right)（对mid+1~right进行归并排序）；</li>
+<li>到达这一步，<strong>说明mid左侧和mid右侧的两个子序列已经排序完毕</strong>，所以将left~mid和mid+1~right两个有序子序列有序<strong>合并为序列a的left~right</strong>；</li>
+<li>MergeSort函数结束（此时可以回归上层）。</li>
+</ol>
+<p>实际上，递归方法的归并排序的思想就是对于一个待排序序列a，从组成它的最小序列开始<strong>不断去形成</strong>成对的有序<b>子</b>序列，并使用有序序列有序合并算法将它们合并到a的对应范围。</p>
+<h4 id="非递归算法"><a href="#非递归算法" class="headerlink" title="非递归算法"></a>非递归算法</h4><p>非递归算法使用的是模拟的方法，模拟归并排序的过程，即通过<strong>逐渐增大分组的len</strong>设置每一次归并排序的<strong>子序列单位长度</strong>，由于每一个子序列的单位长度为1时不需要进行merge操作，所以设置len从2开始增大，使用每次的len对原序列进行分段有序合并，直到原序列长度的一半即可（因为再len成为原序列的一半时便可以使用此len将原序列的左右两半有序合并）。</p>
+<p>注意：对于一个子序列单位长度len，可能对于原序列长度n<strong>并不能</strong>被分成完整的几个子序列，所以对于这种情况的处理只需要将最后的那几个元素当成一个序列和它之前的子序列一起合并到原序列即可。</p>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>由于对于归并排序每次确定一个子序列后都需要辅助区间来实现将left~mid和mid+1~right的元素有序合并到原序列中，并且每个子序列的长度都满足小于等于原序列的一半，所以可以知道对于长度为n的序列进行归并排序时的空间复杂度为</p>
+<script type="math/tex; mode=display">
+O(n)</script><p>时间复杂度分析</p>
+<p>对于一个长度为n的序列设其需要的时间为$T(n)$可得$T(n)=T(\frac{n}{2})\times2+O(n)$。</p>
+<script type="math/tex; mode=display">
+O(nlogn)</script><h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><h4 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h4><h5 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MergeList</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span> * a, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">        mergeSort(a, left, mid);</span><br><span class="line">        mergeSort(a, mid + <span class="number">1</span>, right);</span><br><span class="line">        MergeList(a, left, mid, right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MergeList</span><span class="params">(<span class="keyword">int</span> * a, <span class="keyword">int</span> left, <span class="keyword">int</span> mid, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lenl = mid - left + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> lenr = right - mid;</span><br><span class="line">    <span class="keyword">int</span> * l = <span class="keyword">new</span> <span class="keyword">int</span>[lenl];</span><br><span class="line">    <span class="keyword">int</span> * r = <span class="keyword">new</span> <span class="keyword">int</span>[lenr];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenl; i++) &#123;</span><br><span class="line">        l[i] = a[left + i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenr; i++) &#123;</span><br><span class="line">        r[i] = a[mid + <span class="number">1</span> + i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>,</span><br><span class="line">    j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; lenl &amp;&amp; j &lt; lenr) &#123;</span><br><span class="line">        <span class="keyword">if</span> (l[i] &lt;= r[j]) &#123;</span><br><span class="line">            a[left++] = l[i++];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            a[left++] = r[j++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; lenl) &#123;</span><br><span class="line">        a[left++] = l[i++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (j &lt; lenr) &#123;</span><br><span class="line">        a[left++] = r[j++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span>[] l;</span><br><span class="line">    <span class="keyword">delete</span>[] r;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> * a = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//归并排序</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"before: "</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    mergeSort(a, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"after: "</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span>[] a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="python3代码"><a href="#python3代码" class="headerlink" title="python3代码"></a>python3代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeSort</span><span class="params">(a, L, R)</span>:</span></span><br><span class="line">    <span class="keyword">if</span>(L &lt; R):</span><br><span class="line">        mid = (L+R)//<span class="number">2</span></span><br><span class="line">        mergeSort(a, L, mid)</span><br><span class="line">        mergeSort(a, mid+<span class="number">1</span>, R)</span><br><span class="line">        merge(a, L, mid, R)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(a, L, mid, R)</span>:</span></span><br><span class="line">    left = []</span><br><span class="line">    right = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(L, mid+<span class="number">1</span>):</span><br><span class="line">        left.append(a[i])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(mid+<span class="number">1</span>, R+<span class="number">1</span>):</span><br><span class="line">        right.append(a[i])</span><br><span class="line">    l = <span class="number">0</span></span><br><span class="line">    r = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> l&lt;len(left) <span class="keyword">and</span> r&lt;len(right):</span><br><span class="line">        <span class="keyword">if</span>(left[l]&lt;=right[r]):</span><br><span class="line">            a[L]=left[l]</span><br><span class="line">            L+=<span class="number">1</span></span><br><span class="line">            l+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            a[L]=right[r]</span><br><span class="line">            L+=<span class="number">1</span></span><br><span class="line">            r+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> l&lt;len(left):</span><br><span class="line">        a[L]=left[l]</span><br><span class="line">        L+=<span class="number">1</span></span><br><span class="line">        l+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> r&lt;len(right):</span><br><span class="line">        a[L]=right[r]</span><br><span class="line">        L+=<span class="number">1</span></span><br><span class="line">        r+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">a = (input(<span class="string">"请输入 排序数组长度,数组内容\n"</span>).split(<span class="string">','</span>))</span><br><span class="line">arr = list(map(int, a[<span class="number">1</span>].split()))</span><br><span class="line">mergeSort(arr, <span class="number">0</span>, len(arr)<span class="number">-1</span>)</span><br><span class="line">print(arr)</span><br></pre></td></tr></table></figure>
+<h5 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] before;</span><br><span class="line">    <span class="keyword">int</span>[] after;<span class="comment">//保存最终结果</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Main</span><span class="params">(<span class="keyword">int</span> n,Scanner scn)</span></span>&#123;</span><br><span class="line">        before=<span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        after=<span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) &#123;</span><br><span class="line">            before[i] = scn.nextInt();</span><br><span class="line">            after[i]=before[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">startSort</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Mergesort(after,<span class="number">0</span>,after.length-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Mergesort</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l==r);</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">            Mergesort(a,l,mid);</span><br><span class="line">            Mergesort(a,mid+<span class="number">1</span>,r);</span><br><span class="line">            MergeList(a,l,mid,r);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MergeList</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> l,<span class="keyword">int</span> mid,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] left=<span class="keyword">new</span> <span class="keyword">int</span>[mid-l+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[] right=<span class="keyword">new</span> <span class="keyword">int</span>[r-mid];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=l;i&lt;=mid;i++)</span><br><span class="line">            left[i-l]=a[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=mid+<span class="number">1</span>;i&lt;=r;i++)</span><br><span class="line">            right[i-mid-<span class="number">1</span>]=a[i];</span><br><span class="line">        <span class="comment">//合并到a</span></span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(;i&lt;left.length&amp;&amp;j&lt;right.length;)&#123;</span><br><span class="line">            <span class="keyword">if</span>(left[i]&lt;=right[j])&#123;</span><br><span class="line">                a[l++]=left[i++];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                a[l++]=right[j++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;left.length)&#123;</span><br><span class="line">            a[l++]=left[i++];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(j&lt;right.length)&#123;</span><br><span class="line">            a[l++]=right[j++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="keyword">int</span>[] a)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i:a)&#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        Scanner scn=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        n=scn.nextInt();</span><br><span class="line">        Main m=<span class="keyword">new</span> Main(n,scn);</span><br><span class="line">        m.startSort();</span><br><span class="line">        System.out.println(<span class="string">"before:"</span>);</span><br><span class="line">        show(m.before);</span><br><span class="line">        System.out.println(<span class="string">"after:"</span>);</span><br><span class="line">        show(m.after);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="非递归实现"><a href="#非递归实现" class="headerlink" title="非递归实现"></a>非递归实现</h4><h5 id="C-代码-1"><a href="#C-代码-1" class="headerlink" title="C++代码"></a>C++代码</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="comment">//循环实现 </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> * a, <span class="keyword">int</span> left, <span class="keyword">int</span> mid, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lenl = mid - left + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> lenr = right - mid;</span><br><span class="line">    <span class="keyword">int</span> * l = <span class="keyword">new</span> <span class="keyword">int</span>[lenl];</span><br><span class="line">    <span class="keyword">int</span> * r = <span class="keyword">new</span> <span class="keyword">int</span>[lenr];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenl; i++) &#123;</span><br><span class="line">        l[i] = a[left + i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenr; i++) &#123;</span><br><span class="line">        r[i] = a[mid + <span class="number">1</span> + i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>,</span><br><span class="line">    j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; lenl &amp;&amp; j &lt; lenr) &#123;</span><br><span class="line">        <span class="keyword">if</span> (l[i] &lt;= r[j]) &#123;</span><br><span class="line">            a[left++] = l[i++];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            a[left++] = r[j++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; lenl) &#123;</span><br><span class="line">        a[left++] = l[i++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (j &lt; lenr) &#123;</span><br><span class="line">        a[left++] = r[j++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span>[] l;</span><br><span class="line">    <span class="keyword">delete</span>[] r;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> * a = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    <span class="keyword">for</span> (len = <span class="number">1</span>; len &lt;= (<span class="keyword">int</span>)<span class="built_in">ceil</span>(n/<span class="number">2.0</span>); len *= <span class="number">2</span>) &#123;</span><br><span class="line">        i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">2</span> * len - <span class="number">1</span> &gt;= n) <span class="keyword">break</span>; <span class="comment">//此时已经全部分组合并成了一组</span></span><br><span class="line">        <span class="keyword">while</span> (i + <span class="number">2</span> * len - <span class="number">1</span> &lt; n) &#123; <span class="comment">//组内配对 </span></span><br><span class="line">            merge(a, i, (i + <span class="number">2</span> * len - <span class="number">1</span> + i) / <span class="number">2</span>, i + <span class="number">2</span> * len - <span class="number">1</span>);</span><br><span class="line">            i += <span class="number">2</span> * len; <span class="comment">//组外偏移</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; n) &#123;</span><br><span class="line">            merge(a, i - <span class="number">2</span> * len, i - <span class="number">1</span>, n - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span>[] a;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yys123456.github.io/tags/2-路归并排序/" rel="tag"># 2-路归并排序</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yys123456.github.io/2019/09/03/操作系统笔记1/" rel="next" title="操作系统笔记1">
+                <i class="fa fa-chevron-left"></i> 操作系统笔记1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yys123456.github.io/images/head.jpg" alt="yu yan song">
+            
+              <p class="site-author-name" itemprop="name">yu yan song</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/yys123456.github.io/archives/">
+                
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/yys123456.github.io/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/yys123456.github.io/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/yys123456.github.io/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#合并两个升序线性表"><span class="nav-number">1.</span> <span class="nav-text">合并两个升序线性表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序表"><span class="nav-number">1.1.</span> <span class="nav-text">顺序表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链表"><span class="nav-number">1.2.</span> <span class="nav-text">链表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法描述"><span class="nav-number">2.</span> <span class="nav-text">算法描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法过程"><span class="nav-number">3.</span> <span class="nav-text">算法过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归算法"><span class="nav-number">3.1.</span> <span class="nav-text">递归算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非递归算法"><span class="nav-number">3.2.</span> <span class="nav-text">非递归算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度分析"><span class="nav-number">4.</span> <span class="nav-text">复杂度分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">5.</span> <span class="nav-text">算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归实现"><span class="nav-number">5.1.</span> <span class="nav-text">递归实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#C-代码"><span class="nav-number">5.1.1.</span> <span class="nav-text">C++代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#python3代码"><span class="nav-number">5.1.2.</span> <span class="nav-text">python3代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java代码"><span class="nav-number">5.1.3.</span> <span class="nav-text">Java代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非递归实现"><span class="nav-number">5.2.</span> <span class="nav-text">非递归实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#C-代码-1"><span class="nav-number">5.2.1.</span> <span class="nav-text">C++代码</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yu yan song</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/yys123456.github.io/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/yys123456.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/yys123456.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/yys123456.github.io/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/yys123456.github.io/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/yys123456.github.io/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/yys123456.github.io/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/yys123456.github.io/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/yys123456.github.io/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/yys123456.github.io/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/yys123456.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/yys123456.github.io/live2dw/assets/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
