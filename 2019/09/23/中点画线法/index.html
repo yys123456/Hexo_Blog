@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/yys123456.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/yys123456.github.io/css/main.css?v=6.7.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yys123456.github.io/images/32x32.ico?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yys123456.github.io/images/16x16.ico?v=6.7.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yys123456.github.io/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="算法描述中点画线法是一种绘制指定起点和终点的直线的算法。由于计算机对于一个图形的显示是使用像素点来构成此图形并显示在屏幕上的，所以对于一个图形的显示并不是连续的（因为并不存在小数个像素），而是通过像素来进行近似的，所以中点画线法就是一种去近似像素点来逼近真实直线的一种方法。 算法过程以0&amp;lt;=k&amp;lt;=1为例，给定起点（x0，y0）和终点（x1，y1）（可以保证这两个点都在直线上，并且都是整">
+<meta name="keywords" content="直线扫描算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中点画线法">
+<meta property="og:url" content="https://yys123456.github.io/2019/09/23/中点画线法/index.html">
+<meta property="og:site_name" content="yys_c">
+<meta property="og:description" content="算法描述中点画线法是一种绘制指定起点和终点的直线的算法。由于计算机对于一个图形的显示是使用像素点来构成此图形并显示在屏幕上的，所以对于一个图形的显示并不是连续的（因为并不存在小数个像素），而是通过像素来进行近似的，所以中点画线法就是一种去近似像素点来逼近真实直线的一种方法。 算法过程以0&amp;lt;=k&amp;lt;=1为例，给定起点（x0，y0）和终点（x1，y1）（可以保证这两个点都在直线上，并且都是整">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ftp.bmp.ovh/imgs/2019/09/fccebf1dbc61c2f7.png">
+<meta property="og:updated_time" content="2019-09-23T15:16:05.165Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="中点画线法">
+<meta name="twitter:description" content="算法描述中点画线法是一种绘制指定起点和终点的直线的算法。由于计算机对于一个图形的显示是使用像素点来构成此图形并显示在屏幕上的，所以对于一个图形的显示并不是连续的（因为并不存在小数个像素），而是通过像素来进行近似的，所以中点画线法就是一种去近似像素点来逼近真实直线的一种方法。 算法过程以0&amp;lt;=k&amp;lt;=1为例，给定起点（x0，y0）和终点（x1，y1）（可以保证这两个点都在直线上，并且都是整">
+<meta name="twitter:image" content="https://ftp.bmp.ovh/imgs/2019/09/fccebf1dbc61c2f7.png">
+
+
+
+  <link rel="alternate" href="/yys123456.github.io/atom.xml" title="yys_c" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://yys123456.github.io/2019/09/23/中点画线法/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>中点画线法 | yys_c</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yys123456.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yys_c</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/yys123456.github.io/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yys123456.github.io/yys123456.github.io/2019/09/23/中点画线法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yu yan song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yys123456.github.io/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yys_c">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">中点画线法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-23 21:24:45 / 修改时间：23:16:05" itemprop="dateCreated datePublished" datetime="2019-09-23T21:24:45+08:00">2019-09-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/yys123456.github.io/categories/CG/" itemprop="url" rel="index"><span itemprop="name">CG</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h3><p>中点画线法是一种绘制指定起点和终点的直线的算法。由于计算机对于一个图形的显示是使用像素点来构成此图形并显示在屏幕上的，所以对于一个图形的显示并不是连续的（因为并不存在小数个像素），而是通过像素来进行近似的，所以<strong>中点画线法就是<font color="red">一种</font>去近似像素点来逼近真实直线的一种方法</strong>。</p>
+<h3 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h3><p>以<strong>0&lt;=k&lt;=1</strong>为例，给定起点（x0，y0）和终点（x1，y1）（可以保证这两个点都在直线上，并且都是整点，保证x0<x1），由于**0<k<=1**，对于一条直线$y=kx+b$，**在x方向上增加一个单位，y方向上的增量不会超过1**，而对于计算机来说，x方向上增加一个像素，y方向上的增量不会超过1个像素，对于一个已经确定的直线上的像素（x，y），想要确定下一个**在直线上（逼近直线）**的像素，**只需要在（x+1，y）和（x+1，y+1）里确定一个即可（这一步使用中点画线法进行选择）**。**若k>1，那么x每增大1，y方向上可能会增大多个像素**，<font color="red">若还以x为自变量</font>就无法确定下一个点的备选集合（用DDA算法的确可以点出这个像素，但是画出来的线像素非常分散）。</x1），由于**0<k<=1**，对于一条直线$y=kx+b$，**在x方向上增加一个单位，y方向上的增量不会超过1**，而对于计算机来说，x方向上增加一个像素，y方向上的增量不会超过1个像素，对于一个已经确定的直线上的像素（x，y），想要确定下一个**在直线上（逼近直线）**的像素，**只需要在（x+1，y）和（x+1，y+1）里确定一个即可（这一步使用中点画线法进行选择）**。**若k></p>
+<h4 id="未加优化的中点画线法画线过程"><a href="#未加优化的中点画线法画线过程" class="headerlink" title="未加优化的中点画线法画线过程"></a>未加优化的中点画线法画线过程</h4><p>0&lt;=k&lt;=1，假设此时已经选下一个点(x,y)</p>
+<ol>
+<li>x&lt;=x1?转到2：结束；</li>
+<li>需要在（x+1，y）和（x+1，y+1）里确定一个点作为逼近直线的近似点；</li>
+<li>取两点的中点（x+1，y+0.5），并计算判别式$ax+by+c\ (a=y1-y0,b=x0-x1)$的值d；</li>
+<li>d&gt;=0?转到4：转到5；</li>
+<li>选择（x+1，y）作为近似点,x=x+1；</li>
+<li>选择（x+1，y+1）作为近似点x=x+1,y=y+1；</li>
+<li>转到1。</li>
+</ol>
+<h4 id="较优化的中点画线法选点过程"><a href="#较优化的中点画线法选点过程" class="headerlink" title="较优化的中点画线法选点过程"></a>较优化的中点画线法选点过程</h4><p>观察未优化算法中的第3步，每次判断选择哪一个点的时候都要进行一次计算判别式的浮点运算，对于硬件较慢，所以考虑如何获得每次判别式的值，观察得到，判别式$d=a(x+1)+b(y+0.5)+c$可以简化为$d=\delta{x}+\delta{y}+c$，而$\delta x和\delta y$是x和y的线性函数，所以d可以进行增量计算。由于第一个点x0,y0一定在直线上，所以d的初始值为a+0.5b（注意只有在<strong>0&lt;=k&lt;=1</strong>时才是这个）</p>
+<p>d的增量计算</p>
+<p>假设已经确定了(x,y)，此时d=a(x+1)+b(y+0.5)+c，那么可以根据d的正负去判断去取（x+1，y）和（x+1，y+1）两者之一</p>
+<p>d&gt;=0：表示(x+1,y+0.5)在直线的上方，所以取点（x+1，y）作为近似，那么下一个d=a(x+2)+b(y+0.5)+c，那么$\delta d=a$；</p>
+<p>d&lt;0：表示(x+1,y+0.5)在直线的下方，所以取点（x+1，y+1）作为近似，那么下一个d=a(x+2)+b(y+1+0.5)+c，那么$\delta d=a+b$；</p>
+<p>可以得到算法过程</p>
+<p>1&gt;=斜率&gt;=0，起始点为(x,y)，d=a+0.5b</p>
+<ol>
+<li>x&lt;=x1?转到2：结束；</li>
+<li>drawpixel(x,y)；</li>
+<li>x++；</li>
+<li>d&gt;=0?（d=d+a，转到1）：（y++,转到1）；</li>
+</ol>
+<h4 id="最优化的中线画线法"><a href="#最优化的中线画线法" class="headerlink" title="最优化的中线画线法"></a>最优化的中线画线法</h4><p>发现较优化的画线方法中d依然是浮点数类型，又由于只使用d的符号，所以可以将d进行乘二处理，此时d可以用整型表示。</p>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><h4 id="增量更新d的C-代码"><a href="#增量更新d的C-代码" class="headerlink" title="增量更新d的C++代码"></a>增量更新d的C++代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">centerPoint</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//x0，y0起点，x1，y1终点，这两点均在直线上并为整数</span></span><br><span class="line">	<span class="comment">//适用于所有斜率</span></span><br><span class="line">	<span class="keyword">int</span> x0, y0, x1, y1;</span><br><span class="line">	<span class="keyword">if</span> (x &gt;= p) &#123;</span><br><span class="line">		x0 = p;</span><br><span class="line">		y0 = q;</span><br><span class="line">		x1 = x;</span><br><span class="line">		y1 = y;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		x0 = x;</span><br><span class="line">		y0 = y;</span><br><span class="line">		x1 = p;</span><br><span class="line">		y1 = q;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> a, b;</span><br><span class="line">	a = y0 - y1;</span><br><span class="line">	b = x1 - x0;</span><br><span class="line">	<span class="keyword">if</span> (x1 - x0 &lt; y1 - y0) &#123;<span class="comment">//k&gt;1</span></span><br><span class="line">		<span class="comment">//此时将x,y角色反转</span></span><br><span class="line">		<span class="keyword">float</span> d = b + <span class="number">0.5</span>*a;</span><br><span class="line">		<span class="keyword">for</span> (; y0 &lt;= y1; y0++) &#123;</span><br><span class="line">			glVertex2i(x0, y0);</span><br><span class="line">			<span class="keyword">if</span> (d &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">				x0++;</span><br><span class="line">				d += a + b;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				d += b;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (x1 - x0 &gt;= y1 - y0) &#123;</span><br><span class="line">		<span class="keyword">if</span> (y1 - y0 &gt;= <span class="number">0</span>) &#123;<span class="comment">//0&lt;=k&lt;=1</span></span><br><span class="line">			<span class="keyword">float</span> d = a + <span class="number">0.5</span>*b;<span class="comment">//注意点的大小关系</span></span><br><span class="line">			<span class="keyword">for</span> (; x0 &lt;= x1;x0++) &#123;</span><br><span class="line">				glVertex2i(x0, y0);</span><br><span class="line">				<span class="keyword">if</span> (d &lt; <span class="number">0</span>) &#123;</span><br><span class="line">					d += a + b;</span><br><span class="line">					y0++;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					d += a;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">abs</span>(y1 - y0) &lt;= x1 - x0) &#123;<span class="comment">//-1&lt;=k&lt;0</span></span><br><span class="line">			<span class="keyword">float</span> d = a - <span class="number">0.5</span>*b;</span><br><span class="line">			<span class="keyword">for</span> (; x0 &lt;= x1; x0++) &#123;</span><br><span class="line">				glVertex2i(x0, y0);</span><br><span class="line">				<span class="keyword">if</span> (d &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">					y0--;</span><br><span class="line">					d += a - b;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					d += a;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;<span class="comment">//k&lt;-1</span></span><br><span class="line">			<span class="comment">//对调x,y以y为自变量</span></span><br><span class="line">			<span class="keyword">float</span> d = <span class="number">0.5</span>*a - b;</span><br><span class="line">			<span class="keyword">for</span> (; y0 &gt;= y1; y0--) &#123;</span><br><span class="line">				glVertex2i(x0, y0);</span><br><span class="line">				<span class="keyword">if</span> (d &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">					d += -b;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					x0++;</span><br><span class="line">					d += a - b;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="OpenGL工程"><a href="#OpenGL工程" class="headerlink" title="OpenGL工程"></a>OpenGL工程</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;gl/GLUT.H&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> xb, yb, xa, ya;</span><br><span class="line"><span class="comment">//中点画线法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">centerPoint</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//x0，y0起点，x1，y1终点，这两点均在直线上并为整数</span></span><br><span class="line">	<span class="comment">//适用于所有斜率</span></span><br><span class="line">	<span class="keyword">int</span> x0, y0, x1, y1;</span><br><span class="line">	<span class="keyword">if</span> (x &gt;= p) &#123;</span><br><span class="line">		x0 = p;</span><br><span class="line">		y0 = q;</span><br><span class="line">		x1 = x;</span><br><span class="line">		y1 = y;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		x0 = x;</span><br><span class="line">		y0 = y;</span><br><span class="line">		x1 = p;</span><br><span class="line">		y1 = q;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> a, b;</span><br><span class="line">	a = y0 - y1;</span><br><span class="line">	b = x1 - x0;</span><br><span class="line">	<span class="keyword">if</span> (x1 - x0 &lt; y1 - y0) &#123;<span class="comment">//k&gt;1</span></span><br><span class="line">		<span class="comment">//此时将x,y角色反转</span></span><br><span class="line">		<span class="keyword">float</span> d = b + <span class="number">0.5</span>*a;</span><br><span class="line">		<span class="keyword">for</span> (; y0 &lt;= y1; y0++) &#123;</span><br><span class="line">			glVertex2i(x0, y0);</span><br><span class="line">			<span class="keyword">if</span> (d &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">				x0++;</span><br><span class="line">				d += a + b;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				d += b;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (x1 - x0 &gt;= y1 - y0) &#123;</span><br><span class="line">		<span class="keyword">if</span> (y1 - y0 &gt;= <span class="number">0</span>) &#123;<span class="comment">//0&lt;=k&lt;=1</span></span><br><span class="line">			<span class="keyword">float</span> d = a + <span class="number">0.5</span>*b;<span class="comment">//注意点的大小关系</span></span><br><span class="line">			<span class="keyword">for</span> (; x0 &lt;= x1;x0++) &#123;</span><br><span class="line">				glVertex2i(x0, y0);</span><br><span class="line">				<span class="keyword">if</span> (d &lt; <span class="number">0</span>) &#123;</span><br><span class="line">					d += a + b;</span><br><span class="line">					y0++;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					d += a;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">abs</span>(y1 - y0) &lt;= x1 - x0) &#123;<span class="comment">//-1&lt;=k&lt;0</span></span><br><span class="line">			<span class="keyword">float</span> d = a - <span class="number">0.5</span>*b;</span><br><span class="line">			<span class="keyword">for</span> (; x0 &lt;= x1; x0++) &#123;</span><br><span class="line">				glVertex2i(x0, y0);</span><br><span class="line">				<span class="keyword">if</span> (d &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">					y0--;</span><br><span class="line">					d += a - b;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					d += a;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;<span class="comment">//k&lt;-1</span></span><br><span class="line">			<span class="comment">//对调x,y以y为自变量</span></span><br><span class="line">			<span class="keyword">float</span> d = <span class="number">0.5</span>*a - b;</span><br><span class="line">			<span class="keyword">for</span> (; y0 &gt;= y1; y0--) &#123;</span><br><span class="line">				glVertex2i(x0, y0);</span><br><span class="line">				<span class="keyword">if</span> (d &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">					d += -b;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					x0++;</span><br><span class="line">					d += a - b;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showline</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	glClear(GL_COLOR_BUFFER_BIT);</span><br><span class="line">	glColor3f(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>);</span><br><span class="line">	glBegin(GL_POINTS);</span><br><span class="line">	centerPoint(xb, yb, xa, ya);<span class="comment">//中点画线法</span></span><br><span class="line">	glEnd();</span><br><span class="line">	glFlush();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[])</span><span class="comment">//这是使用glut库函数进行窗口管理</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">		glutMainLoop();</span></span><br><span class="line"><span class="comment">		让所有的与“事件”有关的函数调用无限循环。</span></span><br><span class="line"><span class="comment">		例如: </span></span><br><span class="line"><span class="comment">		glutReshapeFunc(zprReshape);</span></span><br><span class="line"><span class="comment">		glutDisplayFunc(display);</span></span><br><span class="line"><span class="comment">		glutKeyboardFunc(press_s);</span></span><br><span class="line"><span class="comment">		则让 zprReshape(),display(),press_s() 无限循环 </span></span><br><span class="line"><span class="comment">		事件 -- 按了不同的键，做了不同的鼠标操作等 互动。</span></span><br><span class="line"><span class="comment">		程序响应，做新的操作，例如物体转动，放大，</span></span><br><span class="line"><span class="comment">		重画，输入了新的参数，数据。。。 </span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	glutInit(&amp;argc, argv);</span><br><span class="line">	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; xb &gt;&gt; yb &gt;&gt; xa &gt;&gt; ya;</span><br><span class="line">	<span class="comment">//指定窗口参数</span></span><br><span class="line">	glutInitWindowPosition(<span class="number">50</span>, <span class="number">100</span>);</span><br><span class="line">	glutInitWindowSize(<span class="number">500</span>, <span class="number">500</span>);</span><br><span class="line">	<span class="comment">//建立绘制的窗口</span></span><br><span class="line">	glutCreateWindow(<span class="string">"中点画线算法"</span>);</span><br><span class="line">	<span class="comment">//设置背景色</span></span><br><span class="line">	glClearColor(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>);</span><br><span class="line">	<span class="comment">//指定二维坐标系</span></span><br><span class="line">	glMatrixMode(GL_PROJECTION);</span><br><span class="line">	glLoadIdentity();<span class="comment">//设置当前矩阵为单位矩阵</span></span><br><span class="line">	gluOrtho2D(<span class="number">-500.0</span>, <span class="number">500.0</span>, <span class="number">-500.0</span>, <span class="number">500.0</span>);</span><br><span class="line">	glutDisplayFunc(showline);</span><br><span class="line">	glutMainLoop();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2019/09/fccebf1dbc61c2f7.png"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yys123456.github.io/tags/直线扫描算法/" rel="tag"># 直线扫描算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yys123456.github.io/2019/09/21/1010 Radix/" rel="next" title="1010 Radix">
+                <i class="fa fa-chevron-left"></i> 1010 Radix
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yys123456.github.io/images/head.jpg" alt="yu yan song">
+            
+              <p class="site-author-name" itemprop="name">yu yan song</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/yys123456.github.io/archives/">
+                
+                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/yys123456.github.io/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/yys123456.github.io/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/yys123456.github.io/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法描述"><span class="nav-number">1.</span> <span class="nav-text">算法描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法过程"><span class="nav-number">2.</span> <span class="nav-text">算法过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#未加优化的中点画线法画线过程"><span class="nav-number">2.1.</span> <span class="nav-text">未加优化的中点画线法画线过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#较优化的中点画线法选点过程"><span class="nav-number">2.2.</span> <span class="nav-text">较优化的中点画线法选点过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最优化的中线画线法"><span class="nav-number">2.3.</span> <span class="nav-text">最优化的中线画线法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">3.</span> <span class="nav-text">算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#增量更新d的C-代码"><span class="nav-number">3.1.</span> <span class="nav-text">增量更新d的C++代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenGL工程"><span class="nav-number">3.2.</span> <span class="nav-text">OpenGL工程</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yu yan song</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/yys123456.github.io/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/yys123456.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/yys123456.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/yys123456.github.io/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/yys123456.github.io/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/yys123456.github.io/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/yys123456.github.io/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/yys123456.github.io/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/yys123456.github.io/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/yys123456.github.io/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/yys123456.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/yys123456.github.io/live2dw/assets/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
