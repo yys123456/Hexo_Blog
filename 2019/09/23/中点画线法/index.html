@@ -101,7 +101,7 @@
 <meta property="og:description" content="算法描述中点画线法是一种绘制指定起点和终点的直线的算法。由于计算机对于一个图形的显示是使用像素点来构成此图形并显示在屏幕上的，所以对于一个图形的显示并不是连续的（因为并不存在小数个像素），而是通过像素来进行近似的，所以中点画线法就是一种去近似像素点来逼近真实直线的一种方法。 算法过程以0&amp;lt;=k&amp;lt;=1为例，给定起点（x0，y0）和终点（x1，y1）（可以保证这两个点都在直线上，并且都是整">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ftp.bmp.ovh/imgs/2019/09/fccebf1dbc61c2f7.png">
-<meta property="og:updated_time" content="2019-09-23T15:16:05.165Z">
+<meta property="og:updated_time" content="2019-09-24T10:23:29.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="中点画线法">
 <meta name="twitter:description" content="算法描述中点画线法是一种绘制指定起点和终点的直线的算法。由于计算机对于一个图形的显示是使用像素点来构成此图形并显示在屏幕上的，所以对于一个图形的显示并不是连续的（因为并不存在小数个像素），而是通过像素来进行近似的，所以中点画线法就是一种去近似像素点来逼近真实直线的一种方法。 算法过程以0&amp;lt;=k&amp;lt;=1为例，给定起点（x0，y0）和终点（x1，y1）（可以保证这两个点都在直线上，并且都是整">
@@ -366,12 +366,24 @@
                 
               
 
-              <time title="创建时间：2019-09-23 21:24:45 / 修改时间：23:16:05" itemprop="dateCreated datePublished" datetime="2019-09-23T21:24:45+08:00">2019-09-23</time>
+              <time title="创建时间：2019-09-23 21:24:45" itemprop="dateCreated datePublished" datetime="2019-09-23T21:24:45+08:00">2019-09-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-09-24 18:23:29" itemprop="dateModified" datetime="2019-09-24T18:23:29+08:00">2019-09-24</time>
               
             
           </span>
@@ -424,7 +436,8 @@
 
       
         <h3 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h3><p>中点画线法是一种绘制指定起点和终点的直线的算法。由于计算机对于一个图形的显示是使用像素点来构成此图形并显示在屏幕上的，所以对于一个图形的显示并不是连续的（因为并不存在小数个像素），而是通过像素来进行近似的，所以<strong>中点画线法就是<font color="red">一种</font>去近似像素点来逼近真实直线的一种方法</strong>。</p>
-<h3 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h3><p>以<strong>0&lt;=k&lt;=1</strong>为例，给定起点（x0，y0）和终点（x1，y1）（可以保证这两个点都在直线上，并且都是整点，保证x0<x1），由于**0<k<=1**，对于一条直线$y=kx+b$，**在x方向上增加一个单位，y方向上的增量不会超过1**，而对于计算机来说，x方向上增加一个像素，y方向上的增量不会超过1个像素，对于一个已经确定的直线上的像素（x，y），想要确定下一个**在直线上（逼近直线）**的像素，**只需要在（x+1，y）和（x+1，y+1）里确定一个即可（这一步使用中点画线法进行选择）**。**若k>1，那么x每增大1，y方向上可能会增大多个像素**，<font color="red">若还以x为自变量</font>就无法确定下一个点的备选集合（用DDA算法的确可以点出这个像素，但是画出来的线像素非常分散）。</x1），由于**0<k<=1**，对于一条直线$y=kx+b$，**在x方向上增加一个单位，y方向上的增量不会超过1**，而对于计算机来说，x方向上增加一个像素，y方向上的增量不会超过1个像素，对于一个已经确定的直线上的像素（x，y），想要确定下一个**在直线上（逼近直线）**的像素，**只需要在（x+1，y）和（x+1，y+1）里确定一个即可（这一步使用中点画线法进行选择）**。**若k></p>
+<h3 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h3><p>以<strong>0&lt;=k&lt;=1</strong>为例，给定起点（x0，y0）和终点（x1，y1）（可以保证这两个点都在直线上，并且都是整点，保证x0&lt;x1）。</p>
+<p>由于<strong>0&lt;=k&lt;=1</strong>，对于一条直线$y=kx+b$，<strong>在x方向上增加一个单位，y方向上的增量不会超过1</strong>，而对于计算机来说，x方向上增加一个像素，y方向上的增量不会超过1个像素，对于一个已经确定的直线上的像素（x，y），想要确定下一个<strong>在直线上（逼近直线）</strong>的像素，<strong>只需要在（x+1，y）和（x+1，y+1）里确定一个即可（这一步使用中点画线法进行选择）</strong>。<strong>若k&gt;1，那么x每增大1，y方向上可能会增大多个像素</strong>，<font color="red">若还以x为自变量</font>就无法确定下一个点的备选集合（用DDA算法的确可以点出这个像素，但是画出来的线像素非常分散）。</p>
 <h4 id="未加优化的中点画线法画线过程"><a href="#未加优化的中点画线法画线过程" class="headerlink" title="未加优化的中点画线法画线过程"></a>未加优化的中点画线法画线过程</h4><p>0&lt;=k&lt;=1，假设此时已经选下一个点(x,y)</p>
 <ol>
 <li>x&lt;=x1?转到2：结束；</li>
